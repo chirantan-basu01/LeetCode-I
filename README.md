@@ -1,2 +1,1 @@
-# Solving DSA from LeetCode
-https://leetcode.com/problemset/all/
+# Solutions to LeetCode problems
