@@ -19,7 +19,7 @@ public:
         int way1=helper(s,idx+1,dp);
         int way2=0;
         
-        if(stoi(b)>0 and stoi(b)<27){
+        if(stoi(b)>9 and stoi(b)<27){
             way2=helper(s,idx+2,dp);
         }
         return dp[idx]=way1+way2;
