@@ -15,20 +15,20 @@ public:
             if(nums[mid]==target){
                 return true;
             }
-            else if(nums[mid]>target){
-                if(nums[low]>nums[mid] || nums[low]<=target){
-                    high=mid-1;
+            else if(nums[mid]<nums[low]){
+                if(target>nums[mid] and nums[high]>=target){
+                    low=mid+1;
                 }
                 else{
-                    low=mid+1;
+                    high=mid-1;
                 }
             }
             else{
-                if(nums[low]<=nums[mid] || nums[low]>target){
-                    low=mid+1;
+                if(target<nums[mid] and nums[low]<=target){
+                    high=mid-1;
                 }
                 else{
-                    high=mid-1;
+                    low=mid+1;
                 }
             }
         }
