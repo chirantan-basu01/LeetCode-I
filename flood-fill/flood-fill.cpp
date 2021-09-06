@@ -1,26 +1,24 @@
 class Solution {
 public:
-    
-    void helper(vector<vector<int>>&image,int sr,int sc,int newColor,int source){
-        if(sr<0 || sc<0 || sr>=image.size() || sc>=image[0].size() || image[sr][sc]!=source)
+    void DFS(int sr,int sc,int m,int n,int newColor,vector<vector<int>>& image,int target){
+        //out of bounds conditions
+        if(sr<0 || sc<0 || sr>=m || sc>=n || image[sr][sc]==newColor || image[sr][sc]!=target)
             return;
         
         image[sr][sc]=newColor;
         
-        helper(image,sr-1,sc,newColor,source);
-        helper(image,sr+1,sc,newColor,source);
-        helper(image,sr,sc+1,newColor,source);
-        helper(image,sr,sc-1,newColor,source);
+        DFS(sr+1,sc,m,n,newColor,image,target);
+        DFS(sr-1,sc,m,n,newColor,image,target);
+        DFS(sr,sc+1,m,n,newColor,image,target);
+        DFS(sr,sc-1,m,n,newColor,image,target);
         
-    
     }
     
-    
     vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc, int newColor) {
-        if(image[sr][sc]==newColor)
-            return image;
+        int m=image.size();
+        int n=image[0].size();
         
-        helper(image,sr,sc,newColor,image[sr][sc]);
+            DFS(sr,sc,m,n,newColor,image,image[sr][sc]);
         return image;
     }
 };
