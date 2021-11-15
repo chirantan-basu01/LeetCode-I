@@ -1,17 +1,23 @@
 class Solution {
 public:
-    int t1=0,t2=1,t3=1;
-    long long int arr[38]={0};
-    
-    int tribonacci(int n) {
-        if(n==0)
-            return t1;
-        if(n==1)
-            return t2;
+     int nthfib(int n,vector<int>&dp){
+        if(n<=1)
+            return n;
         if(n==2)
-            return t3;
-        if(arr[n]!=0)
-            return arr[n];
-        return arr[n]=tribonacci(n-1)+tribonacci(n-2)+tribonacci(n-3);
+            return 1;
+        int currentKey=n;
+        if(dp[currentKey]!=-1)
+            return dp[currentKey];
+        
+        int a=nthfib(n-1,dp);
+        int b=nthfib(n-2,dp);
+        int c=nthfib(n-3,dp);
+        
+        dp[currentKey]=a+b+c;
+        return dp[currentKey];
+    }
+    int tribonacci(int n) {
+        vector<int>dp(n+1,-1);
+        return nthfib(n,dp);
     }
 };
