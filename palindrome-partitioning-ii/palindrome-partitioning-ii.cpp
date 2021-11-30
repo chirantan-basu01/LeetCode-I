@@ -26,9 +26,8 @@ public:
         int ans=INT_MAX-1;
         for(int current=start;current<end;current++){
             if(isPalindrome(s,start,current)){
-                int leftHalf=minimumCuts(s,start,current,dp);
                 int rightHalf=minimumCuts(s,current+1,end,dp);
-                int tempAns=1+leftHalf+rightHalf;
+                int tempAns=1+rightHalf;
                 ans=min(ans,tempAns);
             }
         }
