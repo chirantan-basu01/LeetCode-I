@@ -10,36 +10,49 @@
  */
 class Solution {
 public:
-    ListNode *reverseList(ListNode *head){
-        if(head==NULL)
-            return NULL;
-        ListNode *p=NULL,*c=head,*n=head->next;
-        while(c!=NULL){
-            c->next=p;
-            p=c;
-            c=n;
-            if(n!=NULL)
-                n=n->next;
+    ListNode* reverseList(ListNode* head){
+        ListNode* prev=NULL,*curr=head,*temp=NULL;
+        while(curr != NULL){
+            temp=curr->next;
+            curr->next=prev;
+            prev=curr;
+            curr=temp;
         }
-        return p;
+        return prev;
+    }
+    
+    ListNode* findMid(ListNode* head){
+        ListNode* slow=head;
+        ListNode* fast=head;
+        
+        while(fast!=NULL and fast->next!=NULL){
+            slow=slow->next;
+            fast=fast->next;
+            if(fast){
+                fast=fast->next;
+            }
+        }
+        return slow;
+    }
+    
+    bool compareList(ListNode* head1,ListNode* head2){
+        while(head1!=NULL and head2!=NULL){
+            if(head1->val!=head2->val)
+                return false;
+            head1=head1->next;
+            head2=head2->next;
+        }
+        return true;
     }
     
     bool isPalindrome(ListNode* head) {
-        ListNode *slow=head,*fast=head;
-        while(fast->next!=NULL and fast->next->next!=NULL){
-            slow=slow->next;
-            fast=fast->next->next;
-        }
-        slow->next=reverseList(slow->next);
-        ListNode *start=head,*mid=slow->next;
-        while(mid!=NULL){
-            if(mid->val!=start->val){
-                return false;
-            }
-            start=start->next;
-            mid=mid->next;
-        }
-        slow->next=reverseList(slow->next);
-        return true;
+        if(head==NULL and head->next==NULL)
+            return true;
+        
+        ListNode* h=head;
+        ListNode* mid=findMid(h);
+        ListNode* head2=reverseList(mid);
+        
+        return compareList(head,head2);
     }
 };
