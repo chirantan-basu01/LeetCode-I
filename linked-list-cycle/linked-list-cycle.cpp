@@ -9,12 +9,13 @@
 class Solution {
 public:
     bool hasCycle(ListNode *head) {
-        ListNode *slow=head,*fast=head;
-        while(fast!=NULL and fast->next!=NULL){
-            slow=slow->next;
-            fast=fast->next->next;
-            if(fast==slow)
+        unordered_set<ListNode*>mp;
+        while(head!=NULL){
+            if(mp.find(head)!=mp.end()){
                 return true;
+            }
+            mp.insert(head);
+            head=head->next;
         }
         return false;
     }
