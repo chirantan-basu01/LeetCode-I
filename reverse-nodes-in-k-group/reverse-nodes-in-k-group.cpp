@@ -10,31 +10,42 @@
  */
 class Solution {
 public:
-    
-    void reverse(ListNode *s,ListNode *e){
-        ListNode *p=NULL,*c=s,*n=s->next;
-        while(p!=e){
-            c->next=p;
-            p=c;
-            c=n;
-            if(n!=NULL)
-                n=n->next;
+    ListNode *reverseLinkedListInKGroup(ListNode* head, int k){
+        
+        if(head==NULL)
+            return head;
+        
+        ListNode *current=head;
+        int currentLength=1;
+        
+        while(current->next!=NULL and currentLength<k){
+            current=current->next;
+            currentLength+=1;
         }
+        
+        if(currentLength<k){
+            return head;
+        }
+        
+        ListNode *tempNode=current->next;
+        current->next=NULL;
+        
+        //reverse 
+        ListNode *prev=NULL;
+        current=head;
+        while(current){
+            ListNode *temp=current->next;
+            current->next=prev;
+            prev=current;
+            current=temp;
+        }
+        
+        ListNode *tempList=reverseLinkedListInKGroup(tempNode,k);
+        head->next=tempList;
+        return prev;
     }
     
     ListNode* reverseKGroup(ListNode* head, int k) {
-        if(head==NULL || k==1 || head->next==NULL)
-            return head;
-        ListNode *s=head,*e=head;
-        int inc=k-1;
-        while(inc--){
-            e=e->next;
-            if(e==NULL)
-                return head;
-        }
-        ListNode *nextHead=reverseKGroup(e->next,k);
-        reverse(s,e);
-        s->next=nextHead;
-        return e;
+        return reverseLinkedListInKGroup(head,k);
     }
 };
