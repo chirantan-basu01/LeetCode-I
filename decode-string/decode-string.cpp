@@ -21,19 +21,17 @@ public:
             int j=i;
             while(s[j]!='[')
                 j--;
-            
             string letters_to_repeat=s.substr(j+1,i-j-1);
             int k=j;
             j--;
-            
             while((j>0) and (isdigit(s[j])))
                 j--;
-            
-            if(j!=0) j++;
+            if(j!=0)
+                j++;
             int times_to_repeat=stoi(s.substr(j,k-j));
             
             s.replace(j,i-j+1,repeat(letters_to_repeat,times_to_repeat));
-            i=letters_to_repeat.size()*times_to_repeat;
+            i=times_to_repeat*letters_to_repeat.size();
         }
         return s;
     }
