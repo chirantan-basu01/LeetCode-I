@@ -1,22 +1,20 @@
-#include<bits/stdc++.h>
 class Solution {
 public:
     int subarraysDivByK(vector<int>& nums, int k) {
-        int pref=0;
-        vector<int>cPref(k);
-        cPref[pref]++;
+        int ans=0,prefixSum=0;
+        unordered_map<int,int>mp;
         
-        int ans=0;
+        mp[prefixSum]=1;
         for(int i=0;i<nums.size();i++){
-            pref=(pref+nums[i])%k;
-            cout<<pref<<" ";
-            if(pref<0){
-                pref+=k;
-                // cout<<pref<<endl;
+            prefixSum+=nums[i];
+            
+            int rem=((prefixSum%k)+k)%k;
+            if(mp.find(rem)!=mp.end()){
+                ans+=mp[rem];
+                mp[rem]++;
             }
-            ans+=cPref[pref];
-            // cout<<ans<<" ";
-            cPref[pref]++;
+            else
+                mp[rem]=1;
         }
         return ans;
     }
